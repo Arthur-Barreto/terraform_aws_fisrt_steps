@@ -26,19 +26,19 @@ resource "aws_key_pair" "deployer_key" {
 resource "aws_security_group" "sec" {
   name        = "sec"
   description = "Allow SSH inbound traffic"
-  
+
   ingress {
-    from_port = 22
-    to_port   = 22
-    protocol  = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-0e783882a19958fff"
-  instance_type = "t2.micro"
-  key_name      = aws_key_pair.deployer_key.key_name
+  ami             = "ami-0e783882a19958fff"
+  instance_type   = "t2.micro"
+  key_name        = aws_key_pair.deployer_key.key_name
   security_groups = [aws_security_group.sec.name]
 
   tags = {
